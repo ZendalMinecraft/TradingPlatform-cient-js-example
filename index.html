@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<script src="js/socket.io.js"></script>
+<script>
+    socket = io.connect("http://localhost:8080", {
+        'secure' : false,
+        'transports' : ["websocket"],
+        'reconnection delay' : 2000,
+        'force new connection' : true,
+    });
+    // Add connect listener
+    socket.on('connect', function() {
+        console.log('');
+    });
+
+    // Add a message listener
+    socket.on('message', function(data) {
+        console.log('<<< ' + data);
+    });
+
+    // Add a disconnect listener
+    socket.on('disconnect', function() {
+        console.log('');
+    });
+</script>
+</body>
+</html>ß
