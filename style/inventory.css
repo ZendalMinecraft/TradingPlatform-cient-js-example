@@ -1,0 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+.inventory {
+    background-color: #C6C6C6;
+    border: 2px solid #999;
+    border-right-color: #555;
+    border-bottom-color: #555;
+    border-spacing: 4px;
+    width: 100%;
+}
+.inventory td {
+    vertical-align: top;
+    text-align: center;
+}
+.inventory--embedded {
+    border-spacing: 0;
+    margin: auto;
+}
+.inventory__cell {
+    height: 32px;
+    min-width: 32px;
+    border: 2px solid #373737;
+    border-right-color: #FFF;
+    border-bottom-color: #FFF;
+    text-align: center;
+    vertical-align: bottom;
+    position: relative;
+    background-color: #8B8B8B;
+}
+.inventory__cell__quantity {
+    position: absolute;
+    bottom: 0;
+    right: 1px;
+    color: #FFF;
+    font-family: "Verdana";
+    font-size: 15px;
+    text-shadow: 1px 1px 0px #000;
+}
+.inventory_cell--avatar {
+    background-size: auto 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+}
+.inventory__cell[data-item]:hover {
+    cursor: pointer;
+    background-color: #ADADAD;
+}
+.inventory__cell[data-item]:hover > * {
+    opacity: .8;
+}
+
