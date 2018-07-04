@@ -4,108 +4,157 @@
 
     <link rel="stylesheet" href="style/inventory.css">
     <script src="js/socket.io.js"></script>
+    <script src="js/inventory.js"></script>
     <script>
         socket = io.connect("http://localhost:2424", {
-            'secure' : false,
-            'transports' : ["websocket"],
-            'reconnection delay' : 2000,
-            'force new connection' : true,
+            'secure': false,
+            'transports': ["websocket"],
+            'reconnection delay': 2000,
+            'force new connection': true,
         });
         // Add connect listener
-        socket.on('connect', function() {
+        socket.on('connect', function () {
             socket.send("a");
             socket.send(
                 JSON.stringify({
-                    "command":"getAllOfflineTrades",
-                    "data":{
-                        "username":"BigTows"
+                    "command": "getAllOfflineTrades",
+                    "data": {
+                        "username": "BigTows"
                     }
                 }));
         });
 
         // Add a message listener
-        socket.on('message', function(data) {
+        socket.on('message', function (data) {
             console.log('<<< ' + data);
         });
 
         // Add a disconnect listener
-        socket.on('disconnect', function() {
+        socket.on('disconnect', function () {
             console.log('¡');
         });
     </script>
 </head>
 <body>
 <table class="inventory">
-<colspan>
-    <col />
-    <col style="width: 1%" />
-</colspan>
-<tbody>
-<tr>
-    <td rowspan="2" class="inventory__cell inventory_cell--avatar" style="background-image: url(https://mcapi.ca/skin/2d/Flomavali);"></td>
-    <td>
-        <table class="inventory--embedded">
-            <tbody>
-            <tr>
-                <td class="inventory__cell" data-item="5:5">
-                    <img src="http://hydra-media.cursecdn.com/minecraft-de.gamepedia.com/6/64/Grid_Birkenholzbretter.png" alt="item">
-                    <span class="inventory__cell__quantity">64</span>
-                </td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-            </tr>
-            <tr>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-            </tr>
-            <tr>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-            </tr>
-            </tbody>
-        </table>
-    </td>
-</tr>
-<tr>
-    <td>
-        <table class="inventory--embedded">
-            <tbody>
-            <tr>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-                <td class="inventory__cell"></td>
-            </tr>
-            </tbody>
-        </table>
-    </td>
-</tr>
-</tbody>
+    <colspan>
+        <col/>
+        <col style="width: 1%"/>
+    </colspan>
+    <tbody>
+    <tr>
+        <td>
+            <table class="inventory--embedded">
+                <tbody>
+                <div class="inventory-block-name">
+                    <a class="inventory-name">Teasdasd asdst</a>
+                </div>
+                <tr>
+                    <td class="inventory__cell">
+                        <img src="http://hydra-media.cursecdn.com/minecraft-de.gamepedia.com/6/64/Grid_Birkenholzbretter.png"
+                             alt="item">
+                        <span class="inventory__cell__quantity">64</span>
+                    </td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                </tr>
+                <tr>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                </tr>
+                <tr>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                </tr>
+                <tr>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                </tr>
+                <tr>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                </tr>
+                <tr>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="inventory--embedded">
+                <tbody>
+                <tr>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                    <td class="inventory__cell"></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
 </table>
+
+<div id="k"></div>
+
+<script>
+    let i = new Inventory("BigTows trade",54);
+    i.setItem(1, new Item("Coal", 128));
+    i.setItem(21, new Item("Coal", 128));
+    i.setItem(31, new Item("Coal", 128));
+    i.setItem(14, new Item("Coal", 128));
+    i.setItem(15, new Item("Coal", 128));
+    document.getElementById("k").appendChild(i.build());
+</script>
 </body>
 </html>
