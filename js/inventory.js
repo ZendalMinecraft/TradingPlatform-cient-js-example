@@ -53,12 +53,18 @@ class Inventory {
             td.className = "inventory__cell";
             if (item !== undefined) {
                 let img = document.createElement("img");
-                img.src = "image/" + item.nameItem + ".png";
-                let span = document.createElement("span");
-                span.className = "inventory__cell__quantity";
-                span.innerHTML = item.countItem;
+                var itemNameImage = item.nameItem;
+                if (item.durabilityItem > 0) {
+                    itemNameImage += ":" + item.durabilityItem;
+                }
+                img.src = "image/" + itemNameImage + ".png";
                 td.appendChild(img);
-                td.appendChild(span);
+                if (item.countItem > 1) {
+                    let span = document.createElement("span");
+                    span.className = "inventory__cell__quantity";
+                    span.innerHTML = item.countItem;
+                    td.appendChild(span);
+                }
             }
             tr.appendChild(td);
         }
@@ -71,9 +77,11 @@ class Inventory {
 
 
 class Item {
-    constructor(name, count) {
+    constructor(name, count, durability) {
         this.name = name;
         this.count = count;
+        this.durability = durability;
+        this.callback = null;
     }
 
     get nameItem() {
@@ -83,4 +91,13 @@ class Item {
     get countItem() {
         return this.count;
     }
+
+    get durabilityItem() {
+        return this.durability;
+    }
+
+    set callBackAction(callback) {
+        this.callback = callback;
+    }
+
 }

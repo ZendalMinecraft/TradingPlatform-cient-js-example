@@ -6,6 +6,7 @@
     <script src="js/socket.io.js"></script>
     <script src="js/inventory.js"></script>
     <script>
+        var lastCommand = "getAllOfflineTrades";
         socket = io.connect("http://localhost:2424", {
             'secure': false,
             'transports': ["websocket"],
@@ -14,147 +15,78 @@
         });
         // Add connect listener
         socket.on('connect', function () {
-            socket.send("a");
             socket.send(
                 JSON.stringify({
-                    "command": "getAllOfflineTrades",
-                    "data": {
-                        "username": "BigTows"
-                    }
+                    "command": "getAllOfflineTrades"
                 }));
         });
 
         // Add a message listener
         socket.on('message', function (data) {
-            console.log('<<< ' + data);
+            console.log(data);
+            let json = JSON.parse(data);
+            if (json.response.type === "getAllOfflineTrades") {
+                initTrades(json.response.trades);
+            } else if (json.response.type === "newOfflineTrade") {
+                initTrades(json.response.trade);
+            }
         });
 
         // Add a disconnect listener
         socket.on('disconnect', function () {
             console.log('¡');
         });
+
+        function initTrades(trades) {
+            trades.forEach(function (trade) {
+                let inventory = new Inventory(trade.trader.name + " trade", 54);
+                var indexSlot = 1;
+                trade.hasItems.forEach(function (item) {
+                    inventory.setItem(indexSlot, new Item(item.idName, item.amount, item.durability));
+                    if ((indexSlot + 5) % 9 == 0) {
+                        indexSlot += 6;
+                    } else {
+                        indexSlot++;
+                    }
+                });
+
+
+                indexSlot = 6;
+                trade.wantItems.forEach(function (item) {
+                    inventory.setItem(indexSlot, new Item(item.idName, item.amount, item.durability));
+                    if (indexSlot % 9 == 0) {
+                        indexSlot += 6;
+                    } else {
+                        indexSlot++;
+                    }
+                });
+                let docEl = document.createElement("div");
+                docEl.id = "trade-" + trade.id;
+
+                let woolItem = new Item("Wool", 1, 5);
+
+                woolItem.callback = function () {
+                    socket.send(
+                        JSON.parse({
+                            "command": ""
+                        })
+                    )
+                };
+
+                inventory.setItem(5, new Item("Stick", 1, 0));
+                inventory.setItem(14, new Item("Stick", 1, 0));
+                inventory.setItem(23, new Item("Wool", 1, 5));
+                inventory.setItem(32, new Item("Stick", 1, 0));
+                inventory.setItem(41, new Item("Stick", 1, 0));
+                for (var indexSlot = 46; indexSlot < 58; indexSlot++) {
+                    inventory.setItem(indexSlot, new Item("Stick", 1, 0))
+                }
+                docEl.appendChild(inventory.build());
+                document.body.appendChild(docEl);
+            })
+        }
     </script>
 </head>
 <body>
-<table class="inventory">
-    <colspan>
-        <col/>
-        <col style="width: 1%"/>
-    </colspan>
-    <tbody>
-    <tr>
-        <td>
-            <table class="inventory--embedded">
-                <tbody>
-                <div class="inventory-block-name">
-                    <a class="inventory-name">Teasdasd asdst</a>
-                </div>
-                <tr>
-                    <td class="inventory__cell">
-                        <img src="http://hydra-media.cursecdn.com/minecraft-de.gamepedia.com/6/64/Grid_Birkenholzbretter.png"
-                             alt="item">
-                        <span class="inventory__cell__quantity">64</span>
-                    </td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                </tr>
-                <tr>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                </tr>
-                <tr>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                </tr>
-                <tr>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                </tr>
-                <tr>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                </tr>
-                <tr>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table class="inventory--embedded">
-                <tbody>
-                <tr>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                    <td class="inventory__cell"></td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<div id="k"></div>
-
-<script>
-    let i = new Inventory("BigTows trade",54);
-    i.setItem(1, new Item("Coal", 128));
-    i.setItem(21, new Item("Coal", 128));
-    i.setItem(31, new Item("Coal", 128));
-    i.setItem(14, new Item("Coal", 128));
-    i.setItem(15, new Item("Coal", 128));
-    document.getElementById("k").appendChild(i.build());
-</script>
 </body>
 </html>
